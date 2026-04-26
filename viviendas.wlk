@@ -8,6 +8,21 @@ object castillo {
 
   method volver(artefactos) {
     artefactosGuardados.addAll(artefactos)
-    //artefactos.forEach({artefactosGuardados.add(artefactos)}) 
   }
+
+  method artefactoMasPoderoso(personaje) {
+    return artefactosGuardados.max({artefacto => artefacto.poder(personaje)})
+  }
+}
+
+object fortalezaDeAcero {
+  
+}
+
+object palacioDeMarmol {
+  
+}
+
+object torreDeMarfil {
+  
 }

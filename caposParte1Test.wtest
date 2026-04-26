@@ -1,7 +1,7 @@
 import artefactos.*
 import capos.*
-import castillo.*
-describe "Rolando guarda artefactos en el castillo" {
+import viviendas.*
+describe "Rolando guarda artefactos en el castillo y verifica sus artefactos" {
   test "Rolando guarda Espada del destino y collar divino en el castillo" {
     rolando.tamañoMochila(2)
     rolando.encontrarArtefacto(espadaDelDestino)

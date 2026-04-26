@@ -1,0 +1,39 @@
+import capos.*
+import artefactos.*
+import enemigos.*
+describe "artefacto fatal" {
+  test "tiene Artefacto fatal para Astra (espada)" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(15)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+
+    // Assert
+    assert.that(rolando.tieneArtefactoFatalPara(astra))
+    assert.equals(espadaDelDestino, rolando.artefactoFatalPara(astra))
+  }
+
+  test "rolando NO tiene artefacto fatal para caterina" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(15)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+
+    // Assert
+    assert.notThat(rolando.tieneArtefactoFatalPara(caterina))
+  }
+}

@@ -1,0 +1,46 @@
+import capos.*
+import artefactos.*
+import enemigos.*
+import erethia.*
+
+describe "Rolando es poderoso?" {
+  test "Rolando es poderoso" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(10)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+    erethia.agregarEnemigo(archibaldo)
+    erethia.agregarEnemigo(astra)
+    erethia.agregarEnemigo(caterina)
+
+    // Assert
+    assert.that(erethia.esPoderoso(rolando))
+  }
+
+  test "Rolando NO es poderoso" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(5)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+    erethia.agregarEnemigo(archibaldo)
+    erethia.agregarEnemigo(astra)
+    erethia.agregarEnemigo(caterina)
+
+    // Assert
+    assert.notThat(erethia.esPoderoso(rolando))
+  }
+}
