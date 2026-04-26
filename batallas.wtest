@@ -1,0 +1,105 @@
+import hechizos.*
+import capos.*
+import artefactos.*
+import viviendas.*
+import enemigos.*
+
+
+describe "Batallas parte 1" {
+  test "Rolando batalla con un collar divino, una espada y armadura" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(5)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+
+    assert.equals(19, rolando.poderPelea()) // antes de la primer batalla
+
+    rolando.lucharBatalla()
+
+    // Assert
+    assert.equals(18, rolando.poderPelea())
+  }
+
+  test "Rolando batalla 2 veces con un collar, una espada y armadura" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(5)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+
+    // Assert
+    assert.equals(19, rolando.poderPelea())
+    // tengo 5 de base + 5 de la espada + 3 del collar + 6 de la armadura = 19
+    // Act
+    rolando.lucharBatalla()
+
+    // Assert
+    assert.equals(18, rolando.poderPelea())
+    // luche una vez, tengo 6 de base + 3 de la espada + 3 del collar + 6 de la armadura = 18 
+    // Act
+    rolando.lucharBatalla()
+
+    // Assert
+    assert.equals(21.5, rolando.poderPelea())
+    // luche por segunda vez, tengo 7 de base + 3.5 de la espada 
+    // + 5 (3+2) del collar + 6 de la armadura = 21,5 
+  }
+
+  test "luchar batalla sin artefactos" {
+    rolando.poderBase(5)
+    rolando.lucharBatalla()
+    assert.equals(6, rolando.poderPelea())
+  }
+
+  test "rolando lucha con el libro de hechizos y tiene guardado artefactos en el castillo" {
+    rolando.tamañoMochila(2)
+    rolando.poderBase(5)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.volverA()
+    assert.equals(#{}, rolando.artefactos())
+    assert.equals([espadaDelDestino, collarDivino], castillo.artefactosGuardados())
+    rolando.encontrarArtefacto(libroDeHechizos)
+    libroDeHechizos.hechizosDisponibles([bendicion, invisibilidad, invocacion])
+    assert.equals(9, rolando.poderPelea())
+    rolando.lucharBatalla()
+    assert.equals(12, rolando.poderPelea())
+    rolando.lucharBatalla()
+    assert.equals(14, rolando.poderPelea())
+  }
+
+  test "Rolando vence a Archibaldo y a Astra" {
+    // Arrage
+    rolando.tamañoMochila(3)
+    rolando.poderBase(5)
+
+    // Act (mas verificacion de si agarro bien los artefactos)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that((rolando.artefactos()).contains(armaduraDeAceroValyrio))
+
+    // Assert
+    //assert.that(rolando.venceA(astra))
+    assert.equals([archibaldo, astra], rolando.puedeVencerA([archibaldo, astra, caterina]))
+    assert.that(rolando.puedeConquistarMoradaDe(archibaldo))
+    assert.that(rolando.puedeConquistarMoradaDe(astra))
+  }
+}

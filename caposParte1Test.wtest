@@ -1,0 +1,69 @@
+import artefactos.*
+import capos.*
+import viviendas.*
+describe "Rolando guarda artefactos en el castillo y verifica sus artefactos" {
+  test "Rolando guarda Espada del destino y collar divino en el castillo" {
+    rolando.tamañoMochila(2)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that((rolando.artefactos()).contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that((rolando.artefactos()).contains(collarDivino))
+    rolando.volverA()
+    assert.equals(#{}, rolando.artefactos())
+    assert.equals([espadaDelDestino, collarDivino], castillo.artefactosGuardados())
+  }
+
+  test "Rolando no tiene espacio" {
+    rolando.tamañoMochila(0)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.notThat(rolando.artefactos().contains(espadaDelDestino))
+    assert.equals(#{}, rolando.artefactos())
+  }
+
+  test "Rolando quiere saber si tiene la espada del destino (la tiene)" {
+    rolando.tamañoMochila(2)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that(rolando.artefactos().contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that(rolando.artefactos().contains(collarDivino))
+    rolando.volverA()
+    rolando.encontrarArtefacto(libroDeHechizos)
+    assert.that(rolando.artefactos().contains(libroDeHechizos))
+    assert.that(rolando.tieneArtefacto(collarDivino))
+  }
+
+  test "Rolando quiere saber si tiene el libro de hechizos (no la tiene)" {
+    rolando.tamañoMochila(2)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that(rolando.artefactos().contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that(rolando.artefactos().contains(collarDivino))
+    rolando.volverA()
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that(rolando.artefactos().contains(armaduraDeAceroValyrio))
+    assert.notThat(rolando.tieneArtefacto(libroDeHechizos))
+  }
+
+  test "historia de artefactos de Rolando" {
+    rolando.tamañoMochila(2)
+    rolando.encontrarArtefacto(espadaDelDestino)
+    assert.that(rolando.artefactos().contains(espadaDelDestino))
+    rolando.encontrarArtefacto(collarDivino)
+    assert.that(rolando.artefactos().contains(collarDivino))
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.notThat(rolando.artefactos().contains(armaduraDeAceroValyrio))    
+    rolando.volverA()
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    assert.that(rolando.artefactos().contains(armaduraDeAceroValyrio))
+    assert.equals([espadaDelDestino, collarDivino, armaduraDeAceroValyrio, armaduraDeAceroValyrio], rolando.historiaDeEncuentros())
+  }
+}
+
+// cuando inicio mi test y setteo las variables de un objeto
+// se llama Arange
+
+// cuando pruebo si una accion/orden esta funcionando
+// se llama Act
+
+// cuando testeamos los "resultados"
+// se llama Assert
